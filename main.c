@@ -13,6 +13,7 @@ int main() {
 		insert(list, data[i]);
 //		printf("-------\n");
 	}
+	print(list);
 
 	printf("%p\n", search(list, 7));
 	printf("%p\n", search(list, 1));
@@ -20,7 +21,9 @@ int main() {
 	printf("%p\n", search(list, 757));
 	printf("%p\n", search(list, 1024));
 
+	delete(list, 7);
 	print(list);
+
 	free_skip_list(list);
 	return 0;
 }

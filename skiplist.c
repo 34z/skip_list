@@ -128,6 +128,7 @@ Node * search(SkipList * list, ElementType value)
 
 SkipList * delete(SkipList * list, ElementType value)
 {
+	Node * node = NULL;
 	Node * p = list->head;
 	for (int i = list->level - 1; i >= 0; --i) {
 		Node * q = p->pointer_list[i]->next;
@@ -136,9 +137,11 @@ SkipList * delete(SkipList * list, ElementType value)
 			q = q->pointer_list[i]->next;
 		}
 		if (q && q->value == value) {
-
+			node = q;
+			p->pointer_list[i]->next = q->pointer_list[i]->next;
 		}
 	}
+	free_node(node);
 	return list;
 }
 
@@ -158,6 +161,7 @@ void print(SkipList * list)
 
 void free_node(Node * node)
 {
+	if (!node) return;
 	for (int i = 0; i < node->level; ++i) {
 		free(node->pointer_list[i]);
 	}
@@ -167,6 +171,7 @@ void free_node(Node * node)
 
 void free_skip_list(SkipList * list)
 {
+	if (!list) return;
 	Node * p = list->head;
 	Node * q;
 	while (p) {

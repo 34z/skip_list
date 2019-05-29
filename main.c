@@ -9,9 +9,7 @@ int main() {
 	SkipList * list = create_skip_list(2, 4);
 	int data[] = {1, 2, 3, 123, 235, 231, 657, 54, 65, 4, 5, 9, 6, 7};
 	for (int i = 0; i < sizeof(data) / sizeof(data[0]); ++i) {
-//		printf("inserting %d\n", data[i]);
 		insert(list, data[i]);
-//		printf("-------\n");
 	}
 	print(list);
 

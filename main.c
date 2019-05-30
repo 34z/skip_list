@@ -11,7 +11,6 @@ int main() {
 	for (int i = 0; i < sizeof(data) / sizeof(data[0]); ++i) {
 		insert(list, data[i]);
 	}
-
 	print(list);
 
 	printf("%p\n", search(list, 7));

@@ -1,12 +1,13 @@
 #include "skiplist.h"
+#include "list.h"
 
 #include <stdio.h>
 #include <time.h>
 #include <stdlib.h>
 
-#define MAXLEVEL 12
+#define MAXLEVEL 15
 #define PROB 2
-#define MAXDATA 200000
+#define MAXDATA 150000
 
 void swap(int *data, int a,int b);
 
@@ -31,37 +32,61 @@ int main(){
 		return 0;
 	}
 	//init the skip list
-	SkipList *list = create_skip_list(PROB, MAXLEVEL);
+	SkipList *skip = create_skip_list(PROB, MAXLEVEL);
 	for(i=0;i<initSize;i++) {
-		insert(list, data[i]);
-		//print(list);
+		insert(skip, data[i]);		
 	}
+	//print(skip);
+	// init the normal list
+	Naive_List *naive = create_naive_list();
+	for(i=0;i<initSize;i++){
+		insert_naive_list(naive, data[i]);
+	}
+	//print_naive_list(naive);
 	//test begins!
-	clock_t begin, end;
-	double duration;
+	clock_t begin_s, end_s, begin_n, end_n;
+	double times,duration_s,duration_n;
 	//insert
-	begin = clock();
+	begin_s = clock();
 	for(i=0;i<testSize;i++){
-		insert(list, data[i+initSize]);
+		insert(skip, data[i+initSize]);
+	}
+	end_s = clock();
+	begin_n = clock();
+	for(i=0;i<testSize;i++){
+		insert_naive_list(naive, data[i+initSize]);
 		//print(list);
 	}
-	end = clock();
-	duration = (double)(end - begin);
+	end_n = clock();
+	duration_s = (double)(end_s - begin_s);
+	duration_n = (double)(end_n - begin_n);
+	times = duration_s / duration_n;
 	//duration = (double)(end - begin) / CLK_TCK / testSize;
-	printf("Insert data into a skip list with %d elements\n", initSize);
-	printf("costs %lf sec each step\n",duration);
+	printf("Insert_skip_list %d elements costs %lf\n", initSize, duration_s);
+	printf("Insert_naive_list %d elements costs %lf\n", initSize, duration_n);
+	printf("ratio : %lf\n",times);
 	//delete (to keep random, we delete part of initial array)
-	begin = clock();
+	begin_s = clock();
 	for(i=0;i<testSize;i++){
-		delete(list, data[i]);
+		delete(skip, data[i]);
 		//print(list);
 	}
-	end = clock();
-	duration = (double)(end - begin);
+	end_s = clock();
+	begin_n = clock();
+	for(i=0;i<testSize;i++){
+		delete_naive_list(naive, data[i]);
+		//print(list);
+	}
+	end_n = clock();
+	duration_s = (double)(end_s - begin_s);
+	duration_n = (double)(end_n - begin_n);
+	times = duration_s / duration_n;
 	//duration = (double)(end - begin) / CLOCKS_PER_SEC / testSize;
-	printf("Delete data from a skip list with %d elements\n", initSize);
-	printf("costs %lf sec each step\n",duration);
-	free_skip_list(list);
+	printf("Delete_skip_list %d elements costs %lf\n", initSize, duration_s);
+	printf("Delete_naive_list %d elements costs %lf\n", initSize, duration_n);
+	printf("ratio : %lf\n",times);
+	free_skip_list(skip);
+	free_naive_list(naive);
 }
 
 void swap(int *data, int a,int b){

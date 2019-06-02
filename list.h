@@ -1,7 +1,3 @@
-//
-// Created by Zhuo Chen on 2019-06-01.
-//
-
 #ifndef SKIP_LIST_LIST_H
 #define SKIP_LIST_LIST_H
 
@@ -25,6 +21,7 @@ Naive_List * insert_naive_list(Naive_List * list, ElementType value);
 Naive_List * delete_naive_list(Naive_List * list, ElementType value);
 Naive_Node * create_naive_node(ElementType value);
 
+void print_naive_list(Naive_List *list);
 void free_naive_list(Naive_List * list);
 
 #endif //SKIP_LIST_LIST_H

@@ -39,11 +39,14 @@ Naive_List * insert_naive_list(Naive_List * list, ElementType value)
 Naive_List * delete_naive_list(Naive_List * list, ElementType value)
 {
 	Naive_Node * p = list->head;
-	while (p->next && p->next->value == value) {
-		Naive_Node * q = p->next;
-		p->next = q->next;
-		free(q);
-		break;
+	while (p->next) {
+		if (p->next->value == value) {
+			Naive_Node *q = p->next;
+			p->next = q->next;
+			free(q);
+			break;
+		}
+		p = p->next;
 	}
 	return list;
 }

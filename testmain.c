@@ -15,7 +15,7 @@ int main(){
 	//set random
 	srand(time(0));
 	int i;
-	int data[MAXDATA];
+	int * data = (int *)malloc(sizeof(int) * MAXDATA);
 	// build up an array with nonredundant elements
 	for(i=0;i<MAXDATA;i++) data[i] = i;
 	int a,b; 
@@ -40,6 +40,7 @@ int main(){
 	// init the normal list
 	Naive_List *naive = create_naive_list();
 	for(i=0;i<initSize;i++){
+//		printf("Inserting %d\n", data[i]);
 		insert_naive_list(naive, data[i]);
 	}
 	//print_naive_list(naive);

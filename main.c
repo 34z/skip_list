@@ -10,19 +10,19 @@ int main() {
 	int data[] = {1, 2, 3, 123, 235, 231, 657, 54, 65, 4, 5, 9, 6, 7};
 	for (int i = 0; i < sizeof(data) / sizeof(data[0]); ++i) {
 //		printf("inserting %d\n", data[i]);
-		insert(list, data[i]);
+		insert_skip_list(list, data[i]);
 //		printf("-------\n");
 	}
-	print(list);
+	print_skip_list(list);
 
-	printf("%p\n", search(list, 7));
-	printf("%p\n", search(list, 1));
-	printf("%p\n", search(list, 657));
-	printf("%p\n", search(list, 757));
-	printf("%p\n", search(list, 1024));
+	printf("%p\n", search_skip_list(list, 7));
+	printf("%p\n", search_skip_list(list, 1));
+	printf("%p\n", search_skip_list(list, 657));
+	printf("%p\n", search_skip_list(list, 757));
+	printf("%p\n", search_skip_list(list, 1024));
 
-	delete(list, 7);
-	print(list);
+	delete_skip_list(list, 7);
+	print_skip_list(list);
 
 	free_skip_list(list);
 	return 0;

@@ -34,7 +34,7 @@ int main(){
 	//init the skip list
 	SkipList *skip = create_skip_list(PROB, MAXLEVEL);
 	for(i=0;i<initSize;i++) {
-		insert(skip, data[i]);		
+		insert_skip_list(skip, data[i]);
 	}
 	//print(skip);
 	// init the normal list
@@ -50,7 +50,7 @@ int main(){
 	//insert
 	begin_s = clock();
 	for(i=0;i<testSize;i++){
-		insert(skip, data[i+initSize]);
+		insert_skip_list(skip, data[i + initSize]);
 	}
 	end_s = clock();
 	begin_n = clock();
@@ -66,10 +66,10 @@ int main(){
 	printf("Insert_skip_list %d elements costs %lf\n", initSize, duration_s);
 	printf("Insert_naive_list %d elements costs %lf\n", initSize, duration_n);
 	printf("ratio : %lf\n",times);
-	//delete (to keep random, we delete part of initial array)
+	//delete (to keep random, we delete_skip_list part of initial array)
 	begin_s = clock();
 	for(i=0;i<testSize;i++){
-		delete(skip, data[i]);
+		delete_skip_list(skip, data[i]);
 		//print(list);
 	}
 	end_s = clock();

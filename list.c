@@ -3,6 +3,10 @@
 #include <stdlib.h>
 #include <stdio.h>
 
+/**
+ * create_naive_list is used to create a naive link list.
+ * @return	[link list]
+ */
 Naive_List * create_naive_list()
 {
 	Naive_List * ret = (Naive_List *)malloc(sizeof(Naive_List));
@@ -11,6 +15,12 @@ Naive_List * create_naive_list()
 	return ret;
 }
 
+/**
+ * search_naive_list is used to search a value in a link list.
+ * @param list		[target link list]
+ * @param value		[search key]
+ * @return
+ */
 Naive_Node * search_naive_list(Naive_List * list, ElementType value)
 {
 	Naive_Node * ret = NULL;
@@ -22,6 +32,12 @@ Naive_Node * search_naive_list(Naive_List * list, ElementType value)
 	return ret;
 }
 
+/**
+ * insert_naive_list is used to insert a value to a link list.
+ * @param list		[target link list]
+ * @param value		[new value]
+ * @return			[target link list]
+ */
 Naive_List * insert_naive_list(Naive_List * list, ElementType value)
 {
 	Naive_Node * new_node = create_naive_node(value);
@@ -32,10 +48,17 @@ Naive_List * insert_naive_list(Naive_List * list, ElementType value)
 	if (!p->next || p->next->value != new_node->value) {
 		new_node->next = p->next;
 		p->next = new_node;
+		list->size ++;
 	}
 	return list;
 }
 
+/**
+ * delete_naive_list is used to delete a value from a link list
+ * @param list		[target link list]
+ * @param value		[value to be deleted]
+ * @return			[target link list]
+ */
 Naive_List * delete_naive_list(Naive_List * list, ElementType value)
 {
 	Naive_Node * p = list->head;
@@ -43,6 +66,7 @@ Naive_List * delete_naive_list(Naive_List * list, ElementType value)
 		if (p->next->value == value) {
 			Naive_Node *q = p->next;
 			p->next = q->next;
+			list->size --;
 			free(q);
 			break;
 		}
@@ -51,6 +75,11 @@ Naive_List * delete_naive_list(Naive_List * list, ElementType value)
 	return list;
 }
 
+/**
+ * create_naive_node is used to create a node in a naive link list.
+ * @param value		[value of this node]
+ * @return			[created node]
+ */
 Naive_Node * create_naive_node(ElementType value)
 {
 	Naive_Node * ret = (Naive_Node *)malloc(sizeof(Naive_Node));
@@ -59,6 +88,10 @@ Naive_Node * create_naive_node(ElementType value)
 	return ret;
 }
 
+/**
+ * print_naive_list is used to print a naive link list.
+ * @param list		[target link list]
+ */
 void print_naive_list(Naive_List *list){
 	Naive_Node *p = list->head->next;
 	while(p){
@@ -66,9 +99,12 @@ void print_naive_list(Naive_List *list){
 		p = p->next;
 	}
 	printf("\n");
-	return;
 }
 
+/**
+ * free_naive_list is used to free memory of a naive link list.
+ * @param list		[target link list]
+ */
 void free_naive_list(Naive_List * list)
 {
 	Naive_Node * p = list->head;

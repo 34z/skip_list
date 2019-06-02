@@ -36,60 +36,78 @@ int main(){
 	for(i=0;i<initSize;i++) {
 		insert_skip_list(skip, data[i]);
 	}
-	//print(skip);
 	// init the normal list
 	Naive_List *naive = create_naive_list();
 	for(i=0;i<initSize;i++){
-//		printf("Inserting %d\n", data[i]);
 		insert_naive_list(naive, data[i]);
 	}
-	//print_naive_list(naive);
 	//test begins!
 	clock_t begin_s, end_s, begin_n, end_n;
 	double times,duration_s,duration_n;
-	//insert
+	//test insert (N = initSize)
+	//test skip list
 	begin_s = clock();
 	for(i=0;i<testSize;i++){
 		insert_skip_list(skip, data[i + initSize]);
 	}
 	end_s = clock();
+	//test normal list
 	begin_n = clock();
 	for(i=0;i<testSize;i++){
 		insert_naive_list(naive, data[i+initSize]);
-		//print(list);
 	}
 	end_n = clock();
 	duration_s = (double)(end_s - begin_s);
 	duration_n = (double)(end_n - begin_n);
+	//times is the quotient of skipList divided by normalList
 	times = duration_s / duration_n;
-	//duration = (double)(end - begin) / CLK_TCK / testSize;
 	printf("Insert_skip_list %d elements costs %lf\n", initSize, duration_s);
 	printf("Insert_naive_list %d elements costs %lf\n", initSize, duration_n);
 	printf("ratio : %lf\n",times);
 	//delete (to keep random, we delete_skip_list part of initial array)
+	//test skip list
 	begin_s = clock();
 	for(i=0;i<testSize;i++){
 		delete_skip_list(skip, data[i]);
-		//print(list);
 	}
 	end_s = clock();
+	//test normal list
 	begin_n = clock();
 	for(i=0;i<testSize;i++){
 		delete_naive_list(naive, data[i]);
-		//print(list);
 	}
 	end_n = clock();
 	duration_s = (double)(end_s - begin_s);
 	duration_n = (double)(end_n - begin_n);
 	times = duration_s / duration_n;
-	//duration = (double)(end - begin) / CLOCKS_PER_SEC / testSize;
 	printf("Delete_skip_list %d elements costs %lf\n", initSize, duration_s);
 	printf("Delete_naive_list %d elements costs %lf\n", initSize, duration_n);
 	printf("ratio : %lf\n",times);
+	//search
+	//test skip list
+	begin_s = clock();
+	for(i=testSize;i<testSize * 2;i++){
+		search_skip_list(skip, data[i]);
+	}
+	end_s = clock();
+	//test normal list
+	begin_n = clock();
+	for(i=testSize;i<testSize*2;i++){
+		search_naive_list(naive, data[i]);
+	}
+	end_n = clock();
+	duration_s = (double)(end_s - begin_s);
+	duration_n = (double)(end_n - begin_n);
+	times = duration_s / duration_n;
+	printf("Search_skip_list %d elements costs %lf\n", initSize, duration_s);
+	printf("Search_naive_list %d elements costs %lf\n", initSize, duration_n);
+	printf("ratio : %lf\n",times);
+	//free space
 	free_skip_list(skip);
 	free_naive_list(naive);
 }
 
+// swap the two elements in array
 void swap(int *data, int a,int b){
 	int temp;
 	temp = data[a];
